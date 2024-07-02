@@ -5,84 +5,88 @@ using Newtonsoft.Json;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 using System;
+using UnityEngine.Video;
+
 
 public class NetworkManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     public VisualTreeAsset CardAsset;
     public UIDocument document;
     private VisualElement root;
+    private VisualElement cardContainer;
     public StyleSheet VideoCardStyle;
     public string DataURI;
-    public List<APIData> data = new List<APIData>();
+    private List<APIData> localData = new List<APIData>();
+    //public VideoPlayer VideoPlayer;
+    //public GameObject CanvasPlayer;
+    //private RenderTexture videotexture;
+    //public List<APIData> data = new List<APIData>();
 
     void OnEnable()
     {
         var uiDocument = document.GetComponent<UIDocument>();
         root = uiDocument.rootVisualElement;
-        root.styleSheets.Add(VideoCardStyle);
-        StartCoroutine("getData");
+        cardContainer = root.Q<VisualElement>("cardContainer");
+        cardContainer.styleSheets.Add(VideoCardStyle);
+        //cardContainer.style.display = DisplayStyle.None;
+        document.panelSettings.targetTexture = null;
+        //CanvasPlayer.SetActive(false);
+        GameManager.Instance.OnDataChanged += getAPIData;
+        if(localData.Count==0)
+        {
+            localData = GameManager.Instance.data;
+            getAPIData(localData);
+        }
+        //StartCoroutine(getData());
     }
-
-
-    void createCard(string Label, Texture2D image, string VideoURL,string imageURL)
+    
+    void getAPIData(List<APIData> datas)
+    {
+        Debug.Log("received Datas");
+        localData = datas;
+        foreach (var x in datas)
+        {
+            StartCoroutine(getImage(x));
+        }
+    }
+    void createCard(string Label, Texture2D image, string VideoURL, APIData data)
     {
         var CardInstance = CardAsset.CloneTree();
         var Titletext = CardInstance.Q<Label>("title");
         var imageElement = CardInstance.Q<Image>("image");
-        var cardVisualElement = CardInstance.Q<VisualElement>("card");
         var cardButton = CardInstance.Q<Button>("cardButton");
+
         Titletext.text = Label;
         imageElement.style.backgroundImage = new StyleBackground(image);
-        //imageElement.style.backgroundImage = url(imageURL);
-        root.Add(CardInstance);
 
-         cardButton.clicked += () => Debug.Log("Card clicked: " + VideoURL);
-
-    }
-
-    IEnumerator getData()
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(DataURI))
-        {
-            yield return webRequest.SendWebRequest();
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.Log(webRequest.result.ToString());
-            }
-            else
-            {
-                string resposne = webRequest.downloadHandler.text;
-                data = JsonConvert.DeserializeObject<List<APIData>>(resposne);
-                //StartCoroutine(data.getImage());
-                foreach(var x in data)
-                {
-                    StartCoroutine(getImage(x));
-                }
-            }
-        }
+        cardButton.clicked += () => SetupPlayer(data);
+        cardContainer.Add(CardInstance);
     }
 
     public IEnumerator getImage(APIData data)
     {
-        using(UnityWebRequest webRequest = UnityWebRequest.Get(data.Image))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(data.Image))
         {
             yield return webRequest.SendWebRequest();
-            if(webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.Log(webRequest.result.ToString());
+                Debug.LogError(webRequest.error);
             }
-            else{
-                Debug.Log(webRequest.downloadHandler.data);
-                Texture2D texture2D = new Texture2D(2,2);
-                //Texture Texture = DownloadHandlerTexture.GetContent(webRequest);
+            else
+            {
+                Texture2D texture2D = new Texture2D(2, 2);
                 texture2D.LoadImage(webRequest.downloadHandler.data);
-                createCard(data.Name,texture2D,data.Video,data.Image);
+                createCard(data.Name, texture2D, data.Video, data);
             }
         }
     }
-}
 
+    void SetupPlayer(APIData VideoURL)
+    {
+        GameManager.Instance.SwitchToVideo(VideoURL);
+    }   
+   
+}
 
 [Serializable]
 public class APIData
@@ -90,5 +94,5 @@ public class APIData
     public string Name;
     public string Image;
     public string Video;
-
+    public bool is360;
 }

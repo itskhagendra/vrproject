@@ -1,5 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="height: 100px;">
-        <ui:Label tabindex="-1" text="Neil VR" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1; flex-grow: 1; justify-content: space-around; align-items: stretch; align-self: stretch; flex-direction: column; -unity-text-align: middle-center;" />
-    </ui:VisualElement>
+    <ui:ScrollView name="something" style="height: 100px; flex-grow: 1;">
+        <ui:Label name="appTitle" tabindex="-1" text="Neil VR" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1; flex-grow: 0.2;" />
+        <ui:VisualElement name="cardContainer" />
+    </ui:ScrollView>
+    
 </ui:UXML>

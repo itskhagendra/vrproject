@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Documents/Home.uss?fileID=7433441132597879392&amp;guid=44b474725f599df498982459fbded84e&amp;type=3#Home" />
     <ui:Button name="cardButton" class="card-button">
         <ui:VisualElement class="card">
             <ui:Label name="title" class="card-title" />
