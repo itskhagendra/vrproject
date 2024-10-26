@@ -1,0 +1,54 @@
+#mainContainer {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    flex-direction: column;
+}
+
+#topBar {
+    padding: 10px;
+}
+
+#heroSection {
+    align-items: center;
+    margin-top: 20px;
+}
+
+.heroTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.heroSubtitle {
+    font-size: 16px;
+    color: white;
+}
+
+#scrollableLibrarySection {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.libraryHeader {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.libraryItems {
+    width: 90%;
+}
+
+.libraryItem {
+    background-color: gray;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+#bottomNav {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    color: white;
+}

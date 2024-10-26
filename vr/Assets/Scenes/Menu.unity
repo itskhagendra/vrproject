@@ -752,6 +752,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DataURI: localhost:8000/v1/data
+  PlayVideo:
+    Name: 
+    Image: 
+    Video: 
+    is360: 0
+  _data: []
 --- !u!1 &1421310744
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,8 +944,8 @@ Camera:
   m_GameObject: {fileID: 1499227224}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.2966358, g: 0.42341578, b: 0.6226415, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.39215687, g: 0.23921569, b: 0.2, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

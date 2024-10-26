@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:ScrollView name="something" style="height: 100px; flex-grow: 1;">
-        <ui:Label name="appTitle" tabindex="-1" text="Neil VR" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1; flex-grow: 0.2;" />
+        <ui:Label name="appTitle" tabindex="-1" text="Neil VR" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-shrink: 1; flex-grow: 0.2; -unity-font: url(&quot;project://database/Assets/fonts/Michroma/Michroma-Regular.ttf?fileID=12800000&amp;guid=784b5004c5f314e13b4377b764a1834a&amp;type=3#Michroma-Regular&quot;); -unity-font-definition: url(&quot;project://database/Assets/fonts/Michroma/Michroma-Regular%20SDF%201.asset?fileID=11400000&amp;guid=76e0701fc74614c6a9049514be5bfd52&amp;type=2#Michroma-Regular SDF 1&quot;);" />
         <ui:VisualElement name="cardContainer" />
     </ui:ScrollView>
-    
 </ui:UXML>
